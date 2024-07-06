@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 public class Seller extends Account {
-    private String companyName;
-    private ArrayList<Product> availableProducts;
+    public String companyName;
+    public ArrayList<Product> availableProducts;
     private Wallet wallet;
     public Seller(String username, String password, String companyName) {
         super(username, password, null, null, null, Permission.SELLER);
@@ -11,5 +11,15 @@ public class Seller extends Account {
     }
     public void addProduct(Product product) {
         availableProducts.add(product);
+    }
+    public void removeProduct(Product product) {
+        availableProducts.remove(product);
+    }
+    public void displayAvailableProducts(){
+        int i = 1;
+        for (Product product : this.availableProducts) {
+            System.out.println(i + ". " + product.name + " $" + product.price);
+            i += 1;
+        }
     }
 }
