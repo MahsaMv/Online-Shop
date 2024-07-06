@@ -6,6 +6,7 @@ public class Shop {
     public static ArrayList<Account> accounts;
     private ArrayList<Product> products;
     private ArrayList<Order> orders;
+    public static ArrayList<Category> categories;
     private double totalProfit;
 
     public Shop(String shopName, String webAddress, String supportNumber) {
@@ -15,10 +16,15 @@ public class Shop {
         this.accounts = new ArrayList<>();
         this.products = new ArrayList<>();
         this.orders = new ArrayList<>();
+        this.categories = new ArrayList<>();
         this.totalProfit = 0.0;
     }
     public ArrayList<Account> getAccounts() {
         return accounts;
+    }
+
+    public ArrayList<Category> getCategories() {
+        return categories;
     }
 
     @Override
@@ -42,5 +48,16 @@ public class Shop {
             }
         }
         return null;
+    }
+    public void addCategory(Category category) {
+        this.categories.add(category);
+    }
+    public void viewCategories() {
+        for (Category category : getCategories()) {
+            System.out.println("Category: " + category.getName());
+            for (Product product : category.getProducts()) {
+                System.out.println("  Product: " + product.getName() + ", Price: " + product.getPrice() + ", Stock: " + product.getInventory());
+            }
+        }
     }
 }
