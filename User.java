@@ -2,7 +2,8 @@ import java.util.ArrayList;
 public class User extends Account {
     private ArrayList<Product> cart;
     private ArrayList<Order> orders;
-    private Wallet wallet;
+    public Wallet wallet;
+
     //private Permission permission;
     public User(String username, String password, String email, String phoneNumber, String address) {
         super(username, password, email, phoneNumber, address, Permission.USER);
