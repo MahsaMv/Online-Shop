@@ -1,14 +1,14 @@
 public class Wallet {
-    private double balance;
+    public double balance;
     public Wallet (double balance){
-        this.balance = 0.0;
+        this.balance = balance;
     }
     public double getBalance(){
         return balance;
     }
-    public void addFund (double fund){
-        this.balance += fund;
-    }
+//    public void addFund (double fund){
+//        this.balance += fund;
+//    }
     public void displayBalance(){
         System.out.println(balance);
     }

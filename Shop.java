@@ -4,7 +4,7 @@ public class Shop {
     private String webAddress;
     private String  supportNumber;
     public static ArrayList<Account> accounts;
-    private ArrayList<Product> products;
+    public static ArrayList<Product> products;
     private ArrayList<Order> orders;
     public static ArrayList<Category> categories;
     private double totalProfit;
@@ -41,14 +41,7 @@ public class Shop {
     public void addProduct(Product product){
         products.add(product);
     }
-    public Account findAccount(String username) {
-        for (Account account : accounts) {
-            if (account.getUsername().equals(username)) {
-                return account;
-            }
-        }
-        return null;
-    }
+
     public void addCategory(Category category) {
         this.categories.add(category);
     }
@@ -56,8 +49,24 @@ public class Shop {
         for (Category category : getCategories()) {
             System.out.println("Category: " + category.getName());
             for (Product product : category.getProducts()) {
-                System.out.println("  Product: " + product.getName() + ", Price: " + product.getPrice() + ", Stock: " + product.getInventory());
+                System.out.println("  Product: " + product.getName() + ", Price: $" + product.getPrice() + ", Stock: " + product.getInventory());
             }
         }
+    }
+    public static Account findAccount(String username) {
+        for (Account account : accounts) {
+            if (account.getUsername().equals(username)) {
+                return account;
+            }
+        }
+        return null;
+    }
+    public static Product searchProduct(String name) {
+        for (Product product : products) {
+            if (product.getName().equals(name)) {
+                return product;
+            }
+        }
+        return null;
     }
 }

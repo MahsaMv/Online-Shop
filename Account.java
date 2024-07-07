@@ -1,7 +1,7 @@
 public class Account {
-    private String username;
-    private String password;
-    private String email;
+    public String username;
+    public String password;
+    public String email;
     private String phoneNumber;
     private String address;
     public Wallet wallet = new Wallet(0.0);

@@ -2,7 +2,9 @@ import java.util.ArrayList;
 public class Seller extends Account {
     public String companyName;
     public ArrayList<Product> availableProducts;
-    private Wallet wallet;
+    public Wallet wallet;
+    public Request sellRequest;
+    public boolean permissionToSell = false;
     public Seller(String username, String password, String companyName) {
         super(username, password, null, null, null, Permission.SELLER);
         this.companyName = companyName;

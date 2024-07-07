@@ -32,6 +32,11 @@ public class Product {
         System.out.println("Comments: " + comments);
         System.out.println("Category: " + category.getName());
     }
+    public void displayComments() {
+        for (String string : this.comments){
+            System.out.println(string);
+        }
+    }
 
     public void reduceQuantity(int amount) {
         if (amount <= inventory)

@@ -94,6 +94,61 @@ public class Main {
                 System.out.println(currentAccount.getPermission());
             }
                 while (currentAccount instanceof Admin) {
+                    System.out.println("\n=== Admin Menu ===");
+                    System.out.println("1. Promote to admin \n2. Add fund to wallet \n3. Accept fund requests \n4. Orders \n5. Sell requests \n6. Log out");
+                    int choice4 = sc.nextInt();
+                    if (choice4 == 1){
+                        System.out.println("Enter the username: ");
+                        String username = sc.next();
+                        Account newAdmin = Shop.findAccount(username);
+                        new Admin(newAdmin.username, newAdmin.password, newAdmin.email);
+                        Shop.accounts.remove(newAdmin);
+                    }
+
+                    if (choice4 == 2){
+                        System.out.println("Enter the username: ");
+                        String username = sc.next();
+                        System.out.println("Enter the amount: ");
+                        double amount = sc.nextDouble();
+                        Shop.findAccount(username).wallet.balance += amount;
+                        System.out.println("Amount has been added to wallet successfully!");
+                    }
+
+                    // fund requests
+                    if (choice4 == 3){
+                        WalletService.displayFundRequests();
+                        int subChoice = sc.nextInt();
+                        ((Admin) currentAccount).acceptFundRequests(WalletService.fundRequests.get(subChoice - 1));
+                        WalletService.fundRequests.remove(subChoice - 1);
+                    }
+
+                    // orders
+                    if (choice4 == 4){
+                        Order.displayOrders();
+                        int subChoice = sc.nextInt();
+                        ((Admin) currentAccount).acceptOrder(Order.orders.get(subChoice - 1));
+                        Order.orders.remove(subChoice - 1);
+                    }
+
+                    // certificates
+                    if (choice4 == 5){
+                        Request.displaySellRequests();
+                        int subChoice = sc.nextInt();
+                        ((Admin) currentAccount).acceptSellRequests(Request.sellRequests.get(subChoice - 1));
+                        Request.sellRequests.remove(subChoice - 1);
+                    }
+
+                    // logout
+                    if (choice4 == 6){
+                        currentAccount = null;
+                    }
+
+
+
+
+
+
+
                     //adminMenu();
                 }
                 while (currentAccount instanceof Seller) {
@@ -106,7 +161,7 @@ public class Main {
                         String newCompanyName = sc.next();
                         currentAccount.editSellerProfile(newUsername, newPassword, newCompanyName);
                     }
-                    if (choice3 == 2) {
+                    if (choice3 == 2 && ((Seller) currentAccount).permissionToSell) {
                         ((Seller)currentAccount).displayAvailableProducts();
                         System.out.println("1. Add product");
                         System.out.println("2. Remove product");
@@ -151,9 +206,10 @@ public class Main {
                     //sellerMenu();
                 }
                 while (currentAccount instanceof User) {
+                    //TODO show balance
                     System.out.println("\n=== User Menu ===");
                     System.out.println("Your balance: ");
-                    System.out.println("1. Edit profile \n2. Add fund \n3. See products\n4. Cart \n5. Log out ");
+                    System.out.println("1. Edit profile \n2. Add fund \n3. See products\n4. Search product \n5. Cart \n6. Log out ");
                     System.out.print("Enter your choice: ");
                     int choice3 = sc.nextInt();
                     if (choice3 == 1){
@@ -167,9 +223,9 @@ public class Main {
                     if (choice3 == 2){
                         System.out.println("Enter amount to add to wallet: ");
                         double fund = sc.nextDouble();
-                        currentAccount.wallet.addFund(fund);
-                        System.out.println("Fund added successfully!");
+                        new WalletService((User) currentAccount, fund);
                     }
+                    // TODO search product and add to cart and buy
                     if (choice3 == 3){
                         initializeShop();
                         int i = 1;
@@ -177,22 +233,60 @@ public class Main {
                             System.out.println(i + ". " + category.name);
                             i += 1;
                         }
+                        System.out.println("Choose the category: ");
                         int subChoice = sc.nextInt();
                         i = 1;
                         for (Product product : Shop.categories.get(subChoice - 1).products){
                             System.out.println(i + ". " + product.name + " $" + product.price);
                                 i += 1;
                         }
+                        int subChoice2 = sc.nextInt();
+                        Shop.categories.get(subChoice - 1).products.get(subChoice2 - 1).displayProduct();
+                        Shop.categories.get(subChoice - 1).products.get(subChoice2 - 1).displayComments();
+
+                        System.out.println("1. Buy \n2. Back");
+                        int subChoice3 = sc.nextInt();
+                        if (subChoice3 == 1){
+                            ((User) currentAccount).addToCart(Shop.categories.get(subChoice - 1).products.get(subChoice2 - 1));
+                        }
+                        if (subChoice3 == 2){
+                            //TODO back
+                        }
+
                     }
                     if (choice3 == 4){
-                        ((User)currentAccount).displayCart();
+                        System.out.println("Search: ");
+                        String name = sc.next();
+                        Product searchedProduct = Shop.searchProduct(name);
+                        searchedProduct.displayProduct();
+                        searchedProduct.displayComments();
+                        System.out.println("1. Buy \n2. Back");
+                        int choice5 = sc.nextInt();
+                        if (choice5 == 1){
+                            ((User) currentAccount).addToCart(searchedProduct);
+                        }
+                        if (choice5 == 2){
+                            // TODO back
+                        }
+                    }
+                    if (choice3 == 5){
+                        double totalPrice = ((User)currentAccount).displayCart();
+                        System.out.println("1 - Buy \n2 - Back");
+                        int choice5 = sc.nextInt();
+                        if (choice5 == 1){
+                            if (currentAccount.wallet.balance > totalPrice){
+                                new Order((User) currentAccount, totalPrice);
+                            }
+                            else {
+                                System.out.println("Not enough balance");
+                            }
+                        }
+                        if (choice5 == 2){
+                            //TODO back
+                        }
                     }
 
-
-
-
-
-                    if (choice3 == 5){
+                    if (choice3 == 6){
                         currentAccount = null;
                         break;
                     }
