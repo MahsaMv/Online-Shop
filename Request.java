@@ -1,9 +1,8 @@
 import java.util.ArrayList;
 public class Request {
     public Seller seller;
-    public static ArrayList<Request> sellRequests;
-
-    public Request(Seller seller, ArrayList<Request> sellRequests){
+    public static ArrayList<Request> sellRequests = new ArrayList<>();
+    public Request(Seller seller) {
         this.seller = seller;
         sellRequests.add(this);
     }

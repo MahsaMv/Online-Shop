@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-
 public class WalletService {
     public User requester;
     public double fund;

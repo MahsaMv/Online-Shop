@@ -8,7 +8,6 @@ public class Shop {
     public static ArrayList<Order> orders;
     public static ArrayList<Category> categories;
     public static double totalProfit;
-
     public Shop(String shopName, String webAddress, String supportNumber) {
         this.shopName = shopName;
         this.webAddress = webAddress;
@@ -22,11 +21,9 @@ public class Shop {
     public ArrayList<Account> getAccounts() {
         return accounts;
     }
-
     public ArrayList<Category> getCategories() {
         return categories;
     }
-
     @Override
     public String toString(){
         return "Welcome to " + this.shopName + "\n"
@@ -41,17 +38,8 @@ public class Shop {
     public void addProduct(Product product){
         products.add(product);
     }
-
     public void addCategory(Category category) {
         this.categories.add(category);
-    }
-    public void viewCategories() {
-        for (Category category : getCategories()) {
-            System.out.println("Category: " + category.getName());
-            for (Product product : category.getProducts()) {
-                System.out.println("  Product: " + product.getName() + ", Price: $" + product.getPrice() + ", Stock: " + product.getInventory());
-            }
-        }
     }
     public static Account findAccount(String username) {
         for (Account account : accounts) {

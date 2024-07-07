@@ -10,6 +10,7 @@ public class Seller extends Account {
         this.companyName = companyName;
         this.availableProducts = new ArrayList<>();
         this.wallet = new Wallet(0.0);
+        new Request(this);
     }
     public void addProduct(Product product) {
         availableProducts.add(product);

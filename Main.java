@@ -153,15 +153,17 @@ public class Main {
 
                     if (choice4 == 7){
                         currentAccount = null;
+                        break;
                     }
 
                 }
+
                 while (currentAccount instanceof Seller) {
                     System.out.println("\nSeller Menu");
                     System.out.println("Your balance: $" + currentAccount.wallet.balance);
                     System.out.println("1. Edit profile \n2. Available products \n3. Log out");
                     int choice3 = sc.nextInt();
-                    if (choice3 == 1){
+                    while (choice3 == 1){
                         String newUsername = sc.next();
                         String newPassword = sc.next();
                         String newCompanyName = sc.next();
@@ -169,10 +171,11 @@ public class Main {
                         currentAccount.log.add("Seller " + currentAccount.username + " changed their profile.");
                     }
 
-                    if (choice3 == 2 && ((Seller) currentAccount).permissionToSell) {
+                    while (choice3 == 2 && ((Seller) currentAccount).permissionToSell) {
                         ((Seller)currentAccount).displayAvailableProducts();
                         System.out.println("1. Add product");
                         System.out.println("2. Remove product");
+                        System.out.println("3. Back");
                         int choice4 = sc.nextInt();
                         if (choice4 == 1){
                             System.out.println("Product name: ");
@@ -180,18 +183,17 @@ public class Main {
                             System.out.println("Product price: ");
                             double price = sc.nextInt();
                             System.out.println("Product quantity: ");
-                            String information = sc.next();
-                            System.out.println("Product information: ");
                             int inventory = sc.nextInt();
+                            System.out.println("Product information: ");
+                            String information = sc.next();
                             System.out.println("Product category: ");
                             String category = sc.next();
-                            //Category category1 = Category.findCategory(category);
-                            Product newProduct = new Product(name, price, inventory, (Seller) currentAccount, information);
-                            ((Seller)currentAccount).addProduct(new Product(name, price, inventory, (Seller) currentAccount, information));
+                            Product newProduct = new Product(name, price, inventory, (Seller) currentAccount, information, Category.findCategory(category));
                             currentAccount.log.add("Seller" + currentAccount.username + " has added " + newProduct.name + " to their available products.");
+                            ((Seller)currentAccount).addProduct(newProduct);
                         }
 
-                        if (choice4 == 2){
+                        while (choice4 == 2){
                             int index = 1;
                             for (Product product : ((Seller) currentAccount).availableProducts){
                                 System.out.println(index + ". " + product.name + " $" + product.price);
@@ -209,16 +211,19 @@ public class Main {
                                 currentAccount.log.add("Seller " + currentAccount.username + " removed product" + ((Seller) currentAccount).availableProducts.get(subChoice - 1).name + "from the product catalogue");
                             }
                         }
+                        while (choice4 == 3){
+                            break;
+                        }
 
                     }
                     if (choice3 == 3){
                         currentAccount.log.add("Seller " + currentAccount.username + " logged out." );
                         currentAccount = null;
+                        break;
                     }
-                    //sellerMenu();
                 }
+
                 while (currentAccount instanceof User) {
-                    //TODO show balance
                     System.out.println("\nUser Menu");
                     System.out.println("Your balance: $" + currentAccount.wallet.balance);
                     System.out.println("1. Edit profile \n2. Add fund \n3. See products\n4. Search product \n5. Cart \n6. Log out ");
@@ -261,19 +266,20 @@ public class Main {
                         System.out.println("1. Add to cart \n2. Add comment \n3. Back");
                         int subChoice3 = sc.nextInt();
                         if (subChoice3 == 1){
-                            ((User) currentAccount).addToCart(Shop.categories.get(subChoice - 1).products.get(subChoice2 - 1));
+                            System.out.println("Enter the amount: ");
+                            int count = sc.nextInt();
+                            ((User) currentAccount).addToCart(Shop.categories.get(subChoice - 1).products.get(subChoice2 - 1), count);
                             currentAccount.log.add("User " + currentAccount.username + " has added " + (Shop.categories.get(subChoice - 1)).products + " to be added to their cart.");
                         }
 
-                        if (choice3 == 2){
+                        while (choice3 == 2){
                             String comment = sc.next();
                             Shop.categories.get(subChoice - 1).products.get(subChoice2 - 1).addComment(comment);
                         }
 
-                        if (subChoice3 == 3){
-                            //TODO back
+                        while (subChoice3 == 3){
+                            break;
                         }
-
                     }
 
                     if (choice3 == 4){
@@ -284,57 +290,60 @@ public class Main {
                         searchedProduct.displayComments();
                         System.out.println("1. Add to cart \n2. Add comment \n3. Back");
                         int choice5 = sc.nextInt();
-                        if (choice5 == 1){
-                            ((User) currentAccount).addToCart(searchedProduct);
+                        while (choice5 == 1){
+                            System.out.println("Enter the amount: ");
+                            int count = sc.nextInt();
+                            ((User) currentAccount).addToCart(searchedProduct, count);
                             currentAccount.log.add("User " + currentAccount.username + " has added " + searchedProduct.name + " to be added to their cart.");
                         }
 
-                        if (choice5 == 2){
+                        while (choice5 == 2){
                             String comment = sc.next();
                             searchedProduct.addComment(comment);
                         }
 
-                        if (choice5 == 3){
-                            // TODO back
+                        while (choice5 == 3){
+                            break;
                         }
                     }
 
+
                     if (choice3 == 5){
                         double totalPrice = ((User)currentAccount).displayCart();
-                        System.out.println("1. Buy \n2. Back");
+                        System.out.println("1. Buy \n2. Remove \n3. Back");
                         int choice5 = sc.nextInt();
-                        if (choice5 == 1){
-                            if (currentAccount.wallet.balance > totalPrice){
+                        while (choice5 == 1) {
+                            if (currentAccount.wallet.balance > totalPrice) {
                                 ((User) currentAccount).orders.add(new Order((User) currentAccount, totalPrice));
-                                currentAccount.log.add("User " + currentAccount.username + " has bought all of items in their cart." );
+                                currentAccount.log.add("User " + currentAccount.username + " has bought all of items in their cart.");
                             }
                             else {
                                 System.out.println("Not enough balance");
                             }
+
+                        while (choice5 == 2){
+                            System.out.println("Enter the name to remove: ");
+                            String name = sc.next();
+                            Product product = Shop.searchProduct(name);
+                            System.out.println("Enter the amount to remove: ");
+                            int count = sc.nextInt();
+                            ((User) currentAccount).removeFromCart(product, count);
                         }
-                        if (choice5 == 2){
-                            //TODO back
+
+                        }
+                        while (choice5 == 3){
+                            break;
                         }
                     }
+
 
                     if (choice3 == 6){
                         currentAccount.log.add("User " + currentAccount.username + " logged out." );
                         currentAccount = null;
+                        break;
                     }
-                    //userMenu();
                 }
             }
         }
     }
-//    private static void adminMenu(Scanner sc, Admin admin) {
-//        System.out.println("Admin Menu");
-//    }
-//
-//    private static void userMenu(Scanner sc, User user) {
-//        System.out.println("User Menu");
-//    }
-//
-//    private static void sellerMenu(Scanner sc, Seller seller) {
-//        System.out.println("Seller Menu");
-//    }
 }

@@ -4,17 +4,17 @@ public class Product extends Category {
     public double price;
     public int inventory;
     private ArrayList<String> comments;
-    //public Category category;
     public Seller seller;
     public String information;
-    public Product(String name, double price, int inventory, Seller seller, String information) {
+    public Product(String name, double price, int inventory, Seller seller, String information, Category category) {
+        super(category.category.name);
         this.name = name;
         this.price = price;
         this.inventory = inventory;
         this.comments = new ArrayList<>();
         //this.category = category;
         this.seller = seller;
-        category.products.add(this);
+        this.category.products.add(this);
         this.information = information;
     }
     public String getName() {
