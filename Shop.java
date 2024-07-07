@@ -6,7 +6,7 @@ public class Shop {
     public static ArrayList<Account> accounts;
     public static ArrayList<Product> products;
     public static ArrayList<Order> orders;
-    public static ArrayList<Category> categories;
+    public static ArrayList<Category> categories = new ArrayList<>();
     public static double totalProfit;
     public Shop(String shopName, String webAddress, String supportNumber) {
         this.shopName = shopName;
@@ -15,7 +15,6 @@ public class Shop {
         this.accounts = new ArrayList<>();
         this.products = new ArrayList<>();
         this.orders = new ArrayList<>();
-        this.categories = new ArrayList<>();
         this.totalProfit = 0.0;
     }
     public ArrayList<Account> getAccounts() {
@@ -29,14 +28,6 @@ public class Shop {
         return "Welcome to " + this.shopName + "\n"
                 + "Website: " + this.webAddress + "\n"
                 + "Support number: " + this.supportNumber;
-    }
-    //entity.User
-    public void addAccount(Account account){
-        accounts.add(account);
-    }
-    //entity.Seller
-    public void addProduct(Product product){
-        products.add(product);
     }
     public void addCategory(Category category) {
         this.categories.add(category);

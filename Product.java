@@ -3,7 +3,7 @@ public class Product extends Category {
     public String name;
     public double price;
     public int inventory;
-    public ArrayList<String> comments;
+    public ArrayList<String> comments = new ArrayList<>();
     public Seller seller;
     public String information;
     public Product(String name, double price, int inventory, Seller seller, String information, Category category) {
@@ -11,11 +11,9 @@ public class Product extends Category {
         this.name = name;
         this.price = price;
         this.inventory = inventory;
-        this.comments = new ArrayList<>();
-        //this.category = category;
         this.seller = seller;
-        this.category.products.add(this);
         this.information = information;
+        this.category.products.add(this);
     }
     public String getName() {
         return name;

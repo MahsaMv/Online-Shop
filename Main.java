@@ -1,9 +1,6 @@
 import java.util.Scanner;
 public class Main {
-    //public static RegisterService registerService;
-    //public static LoginService loginService;
     public static Account currentAccount;
-    //public static Seller seller;
 
     public static void main(String[] args) {
         Shop shop = createShop();
@@ -11,7 +8,7 @@ public class Main {
         mainMenu();
     }
     private static Shop createShop() {
-        return new Shop("MyShop", "www.myshop.com", "1234567890");
+        return new Shop("MyShop", "www.myhop.com", "1234567890");
     }
     private static void initializeShop() {
         Admin admin = new Admin("admin", "123456", "admin@myshop.com");
@@ -22,14 +19,14 @@ public class Main {
         Category electronics = new Category("Electronics");
         Category clothing = new Category("Clothing");
         Category books = new Category("Books");
-        Category homeAppliances = new Category("Home Appliances");
+        Category furniture = new Category("Furniture");
         Category beauty = new Category("Beauty");
 
-        shop.addCategory(electronics);
-        shop.addCategory(clothing);
-        shop.addCategory(books);
-        shop.addCategory(homeAppliances);
-        shop.addCategory(beauty);
+//        shop.addCategory(electronics);
+//        shop.addCategory(clothing);
+//        shop.addCategory(books);
+//        shop.addCategory(homeAppliances);
+//        shop.addCategory(beauty);
 
 //        Product phone = new Product("iPhone", 999.99, 10, electronics);
 //        electronics.addProduct(phone);
@@ -214,7 +211,7 @@ public class Main {
                                 ((Seller) currentAccount).availableProducts.remove(subChoice - 1);
                             }
                         }
-                        while (choice4 == 3){
+                        if (choice4 == 3){
                             break;
                         }
 
@@ -246,6 +243,7 @@ public class Main {
                         System.out.println("Enter amount to add to wallet: ");
                         double fund = sc.nextDouble();
                         new WalletService((User) currentAccount, fund);
+
                         currentAccount.log.add("User " + currentAccount.username + " sent request for $" + fund + " to be added to their wallet.");
                     }
 
@@ -264,7 +262,7 @@ public class Main {
                         }
                         int subChoice2 = sc.nextInt();
                         Shop.categories.get(subChoice - 1).products.get(subChoice2 - 1).displayProduct();
-                        if(Shop.categories.get(subChoice - 1).products.get(subChoice2 - 1).comments != null) {
+                        if (Shop.categories.get(subChoice - 1).products.get(subChoice2 - 1).comments != null) {
                             Shop.categories.get(subChoice - 1).products.get(subChoice2 - 1).displayComments();
                         }
 
@@ -277,12 +275,13 @@ public class Main {
                             currentAccount.log.add("User " + currentAccount.username + " has added " + (Shop.categories.get(subChoice - 1)).products + " to be added to their cart.");
                         }
 
-                        while (choice3 == 2){
-                            String comment = sc.next();
+                        if (subChoice3== 2){
+                            sc.nextLine();
+                            String comment = sc.nextLine();
                             Shop.categories.get(subChoice - 1).products.get(subChoice2 - 1).addComment(comment);
                         }
 
-                        while (subChoice3 == 3){
+                        if (subChoice3 == 3){
                             break;
                         }
                     }

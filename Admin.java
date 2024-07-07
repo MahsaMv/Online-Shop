@@ -8,9 +8,6 @@ public class Admin extends Account {
     public void acceptFundRequests(WalletService wallet) {
         wallet.requester.wallet.balance += wallet.fund;
     }
-    public void addFundToWallet(WalletService wallet){
-        //wallet.requester.wallet.balance += wallet.fund;
-    }
     public boolean acceptOrder(Order order) {
         for (Product product : order.user.cart.keySet()) {
             if (product.inventory >= order.user.cart.get(product)) {

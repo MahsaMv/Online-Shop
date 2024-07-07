@@ -2,11 +2,11 @@ import java.util.ArrayList;
 public class WalletService {
     public User requester;
     public double fund;
-    public static ArrayList<WalletService> fundRequests;
+    public static ArrayList<WalletService> fundRequests = new ArrayList<>();
     public WalletService(User requester, double fund){
         this.requester = requester;
         this.fund = fund;
-        this.fundRequests = new ArrayList<>();
+        fundRequests.add(this);
     }
     public static void displayFundRequests() {
         int i = 1;
