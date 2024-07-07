@@ -3,7 +3,7 @@ public class Product extends Category {
     public String name;
     public double price;
     public int inventory;
-    private ArrayList<String> comments;
+    public ArrayList<String> comments;
     public Seller seller;
     public String information;
     public Product(String name, double price, int inventory, Seller seller, String information, Category category) {

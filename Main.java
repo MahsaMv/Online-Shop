@@ -96,6 +96,7 @@ public class Main {
             }
                 while (currentAccount instanceof Admin) {
                     System.out.println("\nAdmin Menu");
+                    System.out.println("Total profit: $" + Shop.totalProfit);
                     System.out.println("1. Promote to admin \n2. Add fund to wallet \n3. Accept fund requests \n4. Orders \n5. Sell requests \n6. User logs\n7. Log out");
                     int choice4 = sc.nextInt();
                     if (choice4 == 1){
@@ -189,26 +190,28 @@ public class Main {
                             System.out.println("Product category: ");
                             String category = sc.next();
                             Product newProduct = new Product(name, price, inventory, (Seller) currentAccount, information, Category.findCategory(category));
-                            currentAccount.log.add("Seller" + currentAccount.username + " has added " + newProduct.name + " to their available products.");
                             ((Seller)currentAccount).addProduct(newProduct);
+                            currentAccount.log.add("Seller" + currentAccount.username + " has added " + newProduct.name + " to their available products.");
                         }
 
-                        while (choice4 == 2){
+                        if (choice4 == 2){
                             int index = 1;
                             for (Product product : ((Seller) currentAccount).availableProducts){
                                 System.out.println(index + ". " + product.name + " $" + product.price);
                                 index += 1;
                             }
                             int subChoice = sc.nextInt();
-                            if (((Seller) currentAccount).availableProducts.get(subChoice - 1).inventory > 1){
-                                ((Seller) currentAccount).availableProducts.get(subChoice - 1).inventory -= 1;
+                            System.out.println("Enter the amount: ");
+                            int amount = sc.nextInt();
+                            if (((Seller) currentAccount).availableProducts.get(subChoice - 1).inventory > amount){
+                                ((Seller) currentAccount).availableProducts.get(subChoice - 1).inventory -= amount;
                                 currentAccount.log.add("Seller " + currentAccount.username + " removed 1 instance of product" + ((Seller) currentAccount).availableProducts.get(subChoice - 1).name + "from the product catalogue");
                             }
                             else {
                                 ((Seller) currentAccount).availableProducts.get(subChoice - 1).category.products.remove(((Seller) currentAccount).availableProducts.get(subChoice - 1));
                                 Shop.products.remove(((Seller) currentAccount).availableProducts.get(subChoice - 1));
-                                ((Seller) currentAccount).availableProducts.remove(subChoice - 1);
                                 currentAccount.log.add("Seller " + currentAccount.username + " removed product" + ((Seller) currentAccount).availableProducts.get(subChoice - 1).name + "from the product catalogue");
+                                ((Seller) currentAccount).availableProducts.remove(subChoice - 1);
                             }
                         }
                         while (choice4 == 3){
@@ -261,7 +264,9 @@ public class Main {
                         }
                         int subChoice2 = sc.nextInt();
                         Shop.categories.get(subChoice - 1).products.get(subChoice2 - 1).displayProduct();
-                        Shop.categories.get(subChoice - 1).products.get(subChoice2 - 1).displayComments();
+                        if(Shop.categories.get(subChoice - 1).products.get(subChoice2 - 1).comments != null) {
+                            Shop.categories.get(subChoice - 1).products.get(subChoice2 - 1).displayComments();
+                        }
 
                         System.out.println("1. Add to cart \n2. Add comment \n3. Back");
                         int subChoice3 = sc.nextInt();

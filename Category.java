@@ -7,6 +7,9 @@ public class Category{
         this.name = name;
         this.products = new ArrayList<>();
         this.category = this;
+        if (Shop.categories.size() < 5) {
+            Shop.categories.add(this);
+        }
     }
     public Category(){
 
