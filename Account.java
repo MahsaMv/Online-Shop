@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Account {
     public String username;
     public String password;
@@ -6,6 +8,7 @@ public class Account {
     private String address;
     public Wallet wallet = new Wallet(0.0);
     private Permission permission;
+    public ArrayList<String> log;
 
     public Account(String username, String password, String email, String phoneNumber, String address, Permission permission) {
         this.username = username;
@@ -14,6 +17,7 @@ public class Account {
         this.phoneNumber = phoneNumber;
         this.address = address;
         this.permission = permission;
+        this.log = new ArrayList<>();
     }
 
     public String getUsername() {

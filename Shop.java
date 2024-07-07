@@ -5,9 +5,9 @@ public class Shop {
     private String  supportNumber;
     public static ArrayList<Account> accounts;
     public static ArrayList<Product> products;
-    private ArrayList<Order> orders;
+    public static ArrayList<Order> orders;
     public static ArrayList<Category> categories;
-    private double totalProfit;
+    public static double totalProfit;
 
     public Shop(String shopName, String webAddress, String supportNumber) {
         this.shopName = shopName;

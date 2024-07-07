@@ -1,17 +1,21 @@
 import java.util.ArrayList;
-public class Product {
+public class Product extends Category {
     public String name;
     public double price;
     public int inventory;
     private ArrayList<String> comments;
-    public Category category;
-
-    public Product(String name, double price, int inventory, Category category) {
+    //public Category category;
+    public Seller seller;
+    public String information;
+    public Product(String name, double price, int inventory, Seller seller, String information) {
         this.name = name;
         this.price = price;
         this.inventory = inventory;
         this.comments = new ArrayList<>();
-        this.category = category;
+        //this.category = category;
+        this.seller = seller;
+        category.products.add(this);
+        this.information = information;
     }
     public String getName() {
         return name;
@@ -27,8 +31,9 @@ public class Product {
     }
     public void displayProduct() {
         System.out.println("Product Name: " + name);
-        System.out.println("Price: " + "$" + price);
+        System.out.println("Price: $" + price);
         System.out.println("Quantity: " + inventory);
+        System.out.println("Information: " + information);
         System.out.println("Comments: " + comments);
         System.out.println("Category: " + category.getName());
     }
@@ -37,12 +42,6 @@ public class Product {
             System.out.println(string);
         }
     }
-
-    public void reduceQuantity(int amount) {
-        if (amount <= inventory)
-            inventory -= amount;
-    }
-//TODO write this
     public void addComment(String comment) {
         comments.add(comment);
     }

@@ -2,9 +2,14 @@ import java.util.ArrayList;
 public class Category{
     public String name;
     public ArrayList<Product> products;
+    public Category category;
     public Category(String name) {
         this.name = name;
         this.products = new ArrayList<>();
+        this.category = this;
+    }
+    public Category(){
+
     }
     public String getName() {
         return name;

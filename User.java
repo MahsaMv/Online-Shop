@@ -2,16 +2,17 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class User extends Account {
-    public
-    HashMap<Product, Integer> cart;
-    private ArrayList<Order> orders;
+    public HashMap<Product, Integer> cart;
+    public ArrayList<Order> orders;
     public Wallet wallet;
+    public HashMap<Product, Integer> bought;
 
     public User(String username, String password, String email, String phoneNumber, String address) {
         super(username, password, email, phoneNumber, address, Permission.USER);
         this.cart = new HashMap<>();
         this.orders = new ArrayList<>();
         this.wallet = new Wallet(0.0);
+        this.bought = new HashMap<>();
     }
 
     //    public void addToCart(Product product){
@@ -36,7 +37,4 @@ public class User extends Account {
             this.cart.put(product, 1);
         }
     }
-//    public void calculateTotalPrice() {
-//
-//    }
 }
